@@ -28,7 +28,11 @@ const plans = [
   },
 ];
 
-export default function SubscriptionPlans({ onClose }) {
+export default function SubscriptionPlans({
+  onClose,
+}: {
+  onClose: () => void;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
