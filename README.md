@@ -24,9 +24,3 @@ Welcome to **PageMindAi**! This cutting-edge web application leverages advanced 
 ## Notice
 
 **This project is not open source.** If you are interested in using PageMindAi for commercial purposes or making a profit with it, please contact me at [shahnoormujawar@gmail.com](mailto:shahnoormujawar@gmail.com).
-
-## Getting Started
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/yourusername/PageMindAi.git
