@@ -15,5 +15,18 @@ Welcome to **PageMindAi**! This cutting-edge web application leverages advanced 
 - **Versatility**: Handles a broad range of topics and questions based on the scanned page content.
 - **Performance**: Ensures fast, reliable responses for a seamless user experience.
 
+## Technology Stack
+
+- **Frontend**: Built with **Next.js** for a dynamic and responsive user interface.
+- **Styling**: Styled using **TailwindCSS** and **ShadCN** for a modern look and feel.
+- **Backend**: Utilizes **Redis** for caching, **vector-database** for efficient data storage, and the **LLaMA model** for advanced natural language processing.
+
 ## Notice
-** this project is not open source if you want to make profit with it you can contact me on shahnoormujawar@gmail.com 
+
+**This project is not open source.** If you are interested in using PageMindAi for commercial purposes or making a profit with it, please contact me at [shahnoormujawar@gmail.com](mailto:shahnoormujawar@gmail.com).
+
+## Getting Started
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/PageMindAi.git
