@@ -15,6 +15,5 @@ Welcome to **PageMindAi**! This cutting-edge web application leverages advanced 
 - **Versatility**: Handles a broad range of topics and questions based on the scanned page content.
 - **Performance**: Ensures fast, reliable responses for a seamless user experience.
 
-## Getting Started
-
-1. **Clone the Repository**:
+## Notice
+** this project is not open source if you want to make profit with it you can contact me on shahnoormujawar@gmail.com 
