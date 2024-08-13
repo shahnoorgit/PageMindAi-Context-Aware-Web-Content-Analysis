@@ -1,33 +1,54 @@
 import ChatWrapper from "@/components/ChatWrapper";
 import { ragchat } from "@/lib/rag-chat";
 import { redis } from "@/lib/redis";
-import React from "react";
+import { cookies } from "next/headers";
 
-interface Pageprops {
+interface PageProps {
   params: {
     url: string | string[] | undefined;
   };
 }
 
-const encoded = ({ uri }: { uri: string[] }) => {
-  const encodedURI = uri.map((component) => decodeURIComponent(component));
-  return encodedURI.join("/");
-};
+function reconstructUrl({ url }: { url: string[] }) {
+  const decodedComponents = url.map((component) =>
+    decodeURIComponent(component)
+  );
 
-const page = async ({ params }: Pageprops) => {
-  const encodedUri = encoded({ uri: params.url as string[] });
-  const isAlreadyIndexed = await redis.sismember(" indexed-urls", encodedUri);
-  const sessionId = "mock-session";
+  return decodedComponents.join("//");
+}
+
+const Page = async ({ params }: PageProps) => {
+  const sessionCookie = cookies().get("sessionId")?.value;
+  const reconstructedUrl = reconstructUrl({ url: params.url as string[] });
+
+  const sessionId = (reconstructedUrl + "--" + sessionCookie).replace(
+    /\//g,
+    ""
+  );
+
+  const isAlreadyIndexed = await redis.sismember(
+    "indexed-urls",
+    reconstructedUrl
+  );
+
+  const initialMessages = await ragchat.history.getMessages({
+    amount: 10,
+    sessionId,
+  });
+
   if (!isAlreadyIndexed) {
     await ragchat.context.add({
       type: "html",
-      source: encodedUri,
-      config: { chunkSize: 200, chunkOverlap: 50 },
+      source: reconstructedUrl,
+      config: { chunkOverlap: 50, chunkSize: 200 },
     });
-    console.log(" added to vector");
-    await redis.sadd(" indexed-urls", encodedUri);
+
+    await redis.sadd("indexed-urls", reconstructedUrl);
   }
-  return <ChatWrapper sessionId={sessionId} />;
+
+  return (
+    <ChatWrapper sessionId={sessionId} initialMessages={initialMessages} />
+  );
 };
 
-export default page;
+export default Page;

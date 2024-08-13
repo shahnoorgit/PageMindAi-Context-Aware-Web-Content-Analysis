@@ -4,10 +4,15 @@ import { NextRequest } from "next/server";
 
 export const POST = async (req: NextRequest) => {
   const { messages, sessionId } = await req.json();
-  const lastMessage = messages[messages.length - 1].content;
-  const response = await ragchat.chat(lastMessage, {
-    streaming: true,
-    sessionId,
-  });
-  return aiUseChatAdapter(response);
+  try {
+    const lastMessage = messages[messages.length - 1].content;
+    const response = await ragchat.chat(lastMessage, {
+      streaming: true,
+      sessionId,
+    });
+    return aiUseChatAdapter(response);
+  } catch (error) {
+    console.log(error);
+    throw new Error(error as string);
+  }
 };
